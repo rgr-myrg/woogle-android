@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+	android:orientation="vertical">
+
+	<!--<TextView-->
+		<!--android:id="@+id/profile_status"-->
+		<!--android:layout_width="match_parent"-->
+		<!--android:layout_height="wrap_content"-->
+		<!--android:lineSpacingExtra="8dp"-->
+		<!--android:padding="@dimen/activity_horizontal_margin"-->
+		<!--android:text="Living the Dream!"-->
+		<!--android:textSize="20sp"/>-->
+
+	<include layout="@layout/cardview_profile_status"/>
+
+	<include layout="@layout/space_horizontal"/>
+
+	<include layout="@layout/cardview_name_numbers"/>
+
+	<include layout="@layout/space_horizontal"/>
+
+	<include layout="@layout/cardview_birth_numbers"/>
+
+</LinearLayout>
