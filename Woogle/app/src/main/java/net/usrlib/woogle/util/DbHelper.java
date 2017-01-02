@@ -11,6 +11,7 @@ import android.util.Log;
 
 import net.usrlib.woogle.BuildConfig;
 import net.usrlib.woogle.sql.NumericalAlphabetItemsTable;
+import net.usrlib.woogle.sql.ProfileTable;
 
 import static android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE;
 
@@ -31,33 +32,37 @@ public class DbHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
+		if (BuildConfig.DEBUG) Log.i(TAG, "onCreate starts up");
+
 		db.execSQL(NumericalAlphabetItemsTable.CREATE_TABLE);
+		db.execSQL(ProfileTable.CREATE_TABLE);
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL(NumericalAlphabetItemsTable.DROP_TABLE);
+		db.execSQL(ProfileTable.CREATE_TABLE);
 		onCreate(db);
 	}
 
-	public boolean createTable(@NonNull final String sql) {
-		Log.d(TAG, sql);
-		final SQLiteDatabase db = getWritableDatabase();
-		boolean success = false;
-
-		db.beginTransaction();
-
-		try {
-			db.execSQL(sql);
-			success = true;
-		} catch (SQLException e) {
-			Log.e("SQLException", e.getMessage());
-		} finally {
-			db.endTransaction();
-		}
-
-		return success;
-	}
+//	public boolean createTable(@NonNull final String sql) {
+//		Log.d(TAG, sql);
+//		final SQLiteDatabase db = getWritableDatabase();
+//		boolean success = false;
+//
+//		db.beginTransaction();
+//
+//		try {
+//			db.execSQL(sql);
+//			success = true;
+//		} catch (SQLException e) {
+//			Log.e("SQLException", e.getMessage());
+//		} finally {
+//			db.endTransaction();
+//		}
+//
+//		return success;
+//	}
 
 	public long insert(@NonNull final String tableName, @NonNull final ContentValues item) {
 		final SQLiteDatabase db = getWritableDatabase();
@@ -66,7 +71,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.beginTransaction();
 
 		try {
-			newRecordId = db.insertOrThrow(tableName, null, item);
+			newRecordId = db.insertWithOnConflict(tableName, null, item, CONFLICT_REPLACE);
 			db.setTransactionSuccessful();
 		} finally {
 			db.endTransaction();

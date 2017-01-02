@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	app:cardElevation="@dimen/cardview_elevation"
+	app:cardBackgroundColor="@color/lightBlue100"
+	android:onClick="onEnterNameClicked">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="horizontal">
+
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@color/lightBlue200">
+			<ImageView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/common_ic_googleplayservices"/>
+		</LinearLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:orientation="vertical"
+			android:layout_gravity="end"
+			android:gravity="end"
+			android:padding="@dimen/default_padding">
+			<LinearLayout
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:paddingBottom="@dimen/default_padding"
+				android:gravity="end"
+				android:orientation="vertical">
+				<TextView
+					android:id="@+id/name_entry"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@string/enter_name_label"
+					style="@style/CardView.Headline"/>
+
+				<include layout="@layout/space_horizontal"/>
+
+				<TextView
+					android:id="@+id/enter_name_link"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/text_size_xlarge"
+					android:text="@string/enter_plus_link"
+					android:gravity="end"
+					style="@style/CardView.Headline"/>
+
+			</LinearLayout>
+		</LinearLayout>
+	</LinearLayout>
+</android.support.v7.widget.CardView>

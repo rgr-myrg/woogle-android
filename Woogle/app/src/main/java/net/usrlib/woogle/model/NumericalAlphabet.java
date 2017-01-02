@@ -1,5 +1,6 @@
 package net.usrlib.woogle.model;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -39,9 +40,46 @@ public class NumericalAlphabet {
 
 	public static final int getValueFor(final String key) {
 		if (!map.containsKey(key)) {
-			return -1;
+			return 0;
 		}
 
 		return map.get(key);
+	}
+
+	public static NameAnalysisResults computeNameValues(final String name) {
+		final ArrayList<Integer> values = new ArrayList<>();
+		final int size = name.length();
+		int compoundValue = 0;
+
+		for (int i = 0; i < size; i++) {
+			String letter = String.valueOf(name.charAt(i)).toUpperCase();
+			int numerical = getValueFor(letter);
+
+			if (numerical > 0) {
+				values.add(numerical);
+				compoundValue += numerical;
+			}
+		}
+
+		final int singleValue = computeDigitalRoot(compoundValue);
+
+		return new NameAnalysisResults(name, compoundValue, singleValue, values);
+	}
+
+	public static int computeDigitalRoot(int n) {
+		// Check for master numbers
+		if (n == 11 || n == 22) {
+			return n;
+		}
+
+		if (n == 0) {
+			return 0;
+		}
+
+		if (n % 9 == 0) {
+			return 9;
+		}
+
+		return n % 9;
 	}
 }

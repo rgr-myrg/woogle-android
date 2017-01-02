@@ -12,6 +12,10 @@
 	<string name="birth_day_label">Birth Day</string>
 	<string name="destiny_label">Destiny</string>
 	<string name="goal_power_label">Goal Power</string>
+	<string name="enter_name_label">Enter Your Name</string>
+	<string name="enter_birthdate_label">Enter Your Birth Date</string>
+
+	<string name="enter_plus_link">+</string>
 
 	<string name="splash_screen_error_message">
 		Oops! Something went wrong. No cake will be served.

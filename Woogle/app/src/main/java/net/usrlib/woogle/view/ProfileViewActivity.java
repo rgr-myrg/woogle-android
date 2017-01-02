@@ -1,7 +1,5 @@
 package net.usrlib.woogle.view;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 
@@ -23,7 +21,7 @@ public class ProfileViewActivity extends BaseActivity {
 		setSupportActionBarHomeEnabled(true);
 	}
 
-	public static void start(Context c) {
-		c.startActivity(new Intent(c, ProfileViewActivity.class));
-	}
+//	public static void start(Context c) {
+//		c.startActivity(new Intent(c, ProfileViewActivity.class));
+//	}
 }

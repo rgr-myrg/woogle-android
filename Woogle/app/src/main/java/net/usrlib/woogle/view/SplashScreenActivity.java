@@ -1,30 +1,38 @@
 package net.usrlib.woogle.view;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Window;
 
 import net.usrlib.woogle.R;
 import net.usrlib.woogle.presenter.Presenter;
-import net.usrlib.woogle.util.Preferences;
 import net.usrlib.woogle.util.UiUtil;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.WindowFeature;
 
 /**
  * Created by rgr-myrg on 12/29/16.
  */
 
-public class SplashScreenActivity extends AppCompatActivity {
-	@Override
-	protected void onCreate(@Nullable Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_splash_screen);
+@Fullscreen
+@EActivity(R.layout.activity_splash_screen)
+@WindowFeature(Window.FEATURE_NO_TITLE)
 
-		Presenter.onCreate(getApplicationContext(), success -> {
+public class SplashScreenActivity extends AppCompatActivity {
+	@AfterViews
+	@Background
+	protected void onAfterViews() {
+		Presenter.performDataInstall(getApplicationContext(), success -> {
 			startNextActivity(success);
 		});
 	}
 
+	@UiThread
 	protected void startNextActivity(final boolean success) {
 		if (!success) {
 			UiUtil.makeSnackbar(
@@ -35,14 +43,11 @@ public class SplashScreenActivity extends AppCompatActivity {
 			return;
 		}
 
-		Preferences.setHasDataInstall(getApplicationContext(), success);
+		//TODO: Need a switch for starting profile vs enter name activity.
+		startActivity(
+				new Intent(getBaseContext(), EnterNameActivity_.class)
+		);
 
-		runOnUiThread(() -> {
-			startActivity(
-					new Intent(getBaseContext(), ProfileViewActivity.class)
-			);
-
-			finish();
-		});
+		finish();
 	}
 }
